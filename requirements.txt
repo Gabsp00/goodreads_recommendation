@@ -1,0 +1,23 @@
+# Núcleo de ciência de dados
+pandas
+numpy
+scikit-learn
+
+# Deep Learning / modelos
+torch
+sentence-transformers
+
+# Vector database para RAG (Técnica 4)
+chromadb
+
+# Interface Web
+streamlit
+
+# LLMs (Técnica 4 – RAG + LLM)
+openai
+google-generativeai
+
+# Utilitários
+python-dotenv
+tqdm
+requests
