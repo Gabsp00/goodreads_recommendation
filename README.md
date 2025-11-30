@@ -73,3 +73,24 @@ A organização detalhada de pastas e arquivos está descrita em:
 - Organizacao.md
 
 Esse arquivo documenta a estrutura de `data/`, `src/`, `results/` e os principais scripts do projeto.
+
+---
+
+## Observação sobre arquivos grandes (Git LFS)
+
+Este repositório utiliza **Git Large File Storage (Git LFS)** para armazenar alguns
+arquivos essenciais, como:
+
+- `data/processed/interactions_train.csv`
+- `data/processed/vector_store/chroma.sqlite3`
+
+Para clonar o projeto com todos esses arquivos funcionando, é recomendado:
+
+```bash
+# instalar o Git LFS (exemplo em sistemas baseados em Debian/Ubuntu)
+sudo apt install git-lfs
+git lfs install
+
+# clonar o repositório normalmente
+git clone https://github.com/Gabsp00/goodreads_recommendation.git
+cd goodreads_recommendation
