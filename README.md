@@ -94,3 +94,52 @@ git lfs install
 # clonar o repositório normalmente
 git clone https://github.com/Gabsp00/goodreads_recommendation.git
 cd goodreads_recommendation
+```
+
+Sem o Git LFS, os arquivos grandes aparecerão apenas como “ponteiros” de texto e
+as Técnicas 3 (FCN) e 4 (RAG) podem não funcionar corretamente.
+
+---
+
+## Configurações dos modelos e hiperparâmetros
+
+### Técnica 2 – Embeddings semânticos por conteúdo
+
+| Configuração                 | Detalhe                         |
+|-----------------------------|---------------------------------|
+| Modelo                      | *all-mpnet-base-v2*             |
+| Dimensão do Embedding (dim) | 768                             |
+| `batch_size`                | 128                             |
+| Normalização de Embeddings  | `True`                          |
+| Perfil do Usuário           | Média dos embeddings dos itens  |
+
+---
+
+### Técnica 3 – FCN (Filtragem Colaborativa Neural)
+
+| Configuração              | Detalhe                        |
+|---------------------------|--------------------------------|
+| Dimensão dos Embeddings   | 64 (usuário e item)            |
+| Arquitetura MLP           | 128 → 64 → 1                   |
+| Função de Ativação        | ReLU                           |
+| `dropout`                 | 0,1                            |
+| Função de Perda (*loss*)  | *Binary Cross-Entropy*         |
+| Otimização                | Adam (`lr = 0.001`)            |
+| `batch_size`              | 1024                           |
+| Épocas                    | 50                             |
+| Entrada                   | (`user_id`, `item_id`)         |
+
+---
+
+### Técnica 4 – RAG + LLM
+
+| Configuração                     | Detalhe                                   |
+|----------------------------------|-------------------------------------------|
+| Vector Store                     | ChromaDB                                  |
+| Embeddings                       | *all-mpnet-base-v2* (dim = 768)          |
+| `top-k` padrão                   | 10                                        |
+| LLM (Modelo de Linguagem)        | `gemini-2.5-flash-lite`                  |
+| Temperatura                      | 0,3                                      |
+| `max_tokens`                     | 512                                      |
+| Pré-processamento da *query*     | Expandida pelo LLM                       |
+| Saída                            | Recomendações + explicação textual       |
